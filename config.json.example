@@ -1,0 +1,14 @@
+{
+  "db": {
+    "url": "localhost",
+    "port": 3717,
+    "database": "ldap",
+    "user": "ldap",
+    "password": "ldap"
+  },
+  "ldap": {
+    "ldap_port": 389,
+    "basedn": "dc=example, dc=com",
+    "company": "Example"
+  }
+}
