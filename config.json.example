@@ -10,5 +10,6 @@
     "ldap_port": 389,
     "basedn": "dc=example, dc=com",
     "company": "Example"
-  }
+  },
+  "admin_port": -1
 }

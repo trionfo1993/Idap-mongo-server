@@ -9,6 +9,7 @@ var ldap = require('ldapjs'),
     basedn = ldap_config.basedn,
     company = ldap_config.company
 
+// ldap
 pool(function (users) {
     for (var i = 0; i < users.length; i++) {
         if (!addrbooks.hasOwnProperty(users[i].username)) {
@@ -30,7 +31,7 @@ pool(function (users) {
         addrbooks[users[i].username].push({
             dn: "cn=" + users[i].name + ", " + basedn,
             attributes: {
-                objectclass: [ "top" ],
+                objectclass: ["top"],
                 cn: users[i].name,
                 mail: users[i].email,
                 givenname: users[i].firstname,
@@ -53,7 +54,7 @@ pool(function (users) {
         return next();
     });
 
-    server.search(basedn, function(req, res, next) {
+    server.search(basedn, function (req, res, next) {
         var binddn = req.connection.ldap.bindDN.toString();
 
         if (userinfo.hasOwnProperty(binddn)) {
@@ -65,7 +66,25 @@ pool(function (users) {
         res.end();
     });
 
-    server.listen(ldap_port, function() {
+    server.listen(ldap_port, function () {
         console.log("Addressbook started at %s", server.url);
     });
 })
+
+// web admin
+var admin_port = require('./config.json').admin_port
+if (admin_port && admin_port !== -1) {
+    var express = require('express');
+    var app = express();
+    var mongo_express = require('mongo-express/lib/middleware')
+    var mongo_express_config = require('./mongo_express_config')
+
+    app.use('/', mongo_express(mongo_express_config))
+
+    var express_server = app.listen(admin_port, function () {
+        var host = express_server.address().address;
+        var port = express_server.address().port;
+
+        console.log('web admin at http://%s:%s', host, port);
+    });
+}

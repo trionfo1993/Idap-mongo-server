@@ -7,11 +7,13 @@
     "start": "node index.js",
     "test": "ldapsearch -H ldap://localhost:389 -x -D cn=admin,dc=example,dc=com -w admin -b \"dc=example,dc=com\" objectclass=*"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Mizuka<trionfo1993@hotmail.com>",
+  "license": "MIT",
+  "repository": "git@github.com:trionfo1993/ldap-mongo-server.git",
   "dependencies": {
     "express": "^4.16.2",
     "ldapjs": "^1.0.2",
+    "mongo-express": "^0.44.0",
     "mongoose": "^5.0.6"
   }
 }
